@@ -1,0 +1,11 @@
+language: julia
+julia:
+  - 0.3
+  - 0.4
+  - 0.5
+  - nightly
+notifications:
+  email: false
+script:
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - xvfb-run julia -e 'versioninfo(); Pkg.init(); Pkg.clone(pwd()); Pkg.build("PiecewiseAffineTransforms"); Pkg.test("PiecewiseAffineTransforms")'
